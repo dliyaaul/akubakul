@@ -13,18 +13,18 @@ public class Bahan {
     private String NamaBahan;
     private double HargaBeli;
     private Integer Stok;
-    
+
     public Bahan(Integer KodeBahan, String NamaBahan, double HargaBeli, Integer Stok) {
         this.KodeBahan = KodeBahan;
         this.NamaBahan = NamaBahan;
         this.HargaBeli = HargaBeli;
         this.Stok = Stok;
     }
-    
+
     public Integer getKodeBahan() {
         return KodeBahan;
     }
-    
+
     public String getNamaBahan() {
         return NamaBahan;
     }
@@ -32,7 +32,7 @@ public class Bahan {
     public double getHargaBeli() {
         return HargaBeli;
     }
-    
+
     public Integer getStok() {
         return Stok;
     }

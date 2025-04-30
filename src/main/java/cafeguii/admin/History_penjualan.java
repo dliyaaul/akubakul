@@ -83,6 +83,7 @@ public class History_penjualan extends javax.swing.JFrame {
         tampilBuku();
         addButtonColumnToTable();
     }
+
     private DefaultTableModel model = new DefaultTableModel();
     private Connection conn;
     private ArrayList<History> daftarBuku;
@@ -124,20 +125,22 @@ public class History_penjualan extends javax.swing.JFrame {
     private void loadBuku() {
         if (conn != null) {
             daftarBuku = new ArrayList<>();
-             String kueri = "SELECT " +
-                "ANY_VALUE(h.KodeHistory) AS KodeHistory, " +
-                "p.Purchase_id, " +
-                "GROUP_CONCAT(CONCAT(pr.NamaProduk, '\\nRp.', pr.HargaProduk, ' x ', p.Kuantitas, ' ') SEPARATOR '\\n\\n') AS Pesanan, " +
-                "ANY_VALUE(dp.Total) AS Total, " +
-                "ANY_VALUE(dp.Tanggal) AS Tanggal, " +
-                "ANY_VALUE(k.UsernameKasir) AS UsernameKasir " +
-                "FROM pesanan p " +
-                "JOIN detailpenjualan dp ON p.Purchase_id = dp.CodePesanan " + // Atau ganti p.CodePesanan jika diperlukan
-                "JOIN historypenjualan h ON dp.CodePenjualan = h.CodePenjualan " +
-                "JOIN karyawan k ON k.KodeKaryawan = h.KodeKaryawan " +
-                "JOIN produk pr ON pr.CodeProduk = p.CodeProduk " +
-                "GROUP BY p.Purchase_id " +
-                "ORDER BY Tanggal DESC";
+            String kueri = "SELECT " +
+                    "ANY_VALUE(h.KodeHistory) AS KodeHistory, " +
+                    "p.Purchase_id, " +
+                    "GROUP_CONCAT(CONCAT(pr.NamaProduk, '\\nRp.', pr.HargaProduk, ' x ', p.Kuantitas, ' ') SEPARATOR '\\n\\n') AS Pesanan, "
+                    +
+                    "ANY_VALUE(dp.Total) AS Total, " +
+                    "ANY_VALUE(dp.Tanggal) AS Tanggal, " +
+                    "ANY_VALUE(k.UsernameKasir) AS UsernameKasir " +
+                    "FROM pesanan p " +
+                    "JOIN detailpenjualan dp ON p.Purchase_id = dp.CodePesanan " + // Atau ganti p.CodePesanan jika
+                                                                                   // diperlukan
+                    "JOIN historypenjualan h ON dp.CodePenjualan = h.CodePenjualan " +
+                    "JOIN karyawan k ON k.KodeKaryawan = h.KodeKaryawan " +
+                    "JOIN produk pr ON pr.CodeProduk = p.CodeProduk " +
+                    "GROUP BY p.Purchase_id " +
+                    "ORDER BY Tanggal DESC";
             try {
                 PreparedStatement ps = conn.prepareStatement(kueri);
                 ResultSet rs = ps.executeQuery();
@@ -162,7 +165,8 @@ public class History_penjualan extends javax.swing.JFrame {
     private void tampilBuku() {
         model.setRowCount(0);
         for (History b : daftarBuku) {
-            model.addRow(new Object[]{b.getKodan(), b.getKodeHistory(), b.getTotal(), b.KodeKaryawan(), b.Tanggal(), b.getPesanan()});
+            model.addRow(new Object[] { b.getKodan(), b.getKodeHistory(), b.getTotal(), b.KodeKaryawan(), b.Tanggal(),
+                    b.getPesanan() });
         }
     }
 
@@ -179,7 +183,8 @@ public class History_penjualan extends javax.swing.JFrame {
         }
 
         @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+                int row, int column) {
             setText((value == null) ? "" : value.toString());
             return this;
         }
@@ -203,7 +208,8 @@ public class History_penjualan extends javax.swing.JFrame {
         }
 
         @Override
-        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
+                int column) {
             label = (value == null) ? "" : value.toString();
             button.setText(label);
             isPushed = true;
@@ -213,7 +219,10 @@ public class History_penjualan extends javax.swing.JFrame {
         @Override
         public Object getCellEditorValue() {
             if (isPushed) {
-                JOptionPane.showMessageDialog(button, "Pesanan " + ": \n" + model.getValueAt(jTable1.getSelectedRow(), 5), "Kode Pesanan : " + model.getValueAt(jTable1.getSelectedRow(), 1), JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(button,
+                        "Pesanan " + ": \n" + model.getValueAt(jTable1.getSelectedRow(), 5),
+                        "Kode Pesanan : " + model.getValueAt(jTable1.getSelectedRow(), 1),
+                        JOptionPane.INFORMATION_MESSAGE);
             }
             isPushed = false;
             return label;
@@ -232,7 +241,8 @@ public class History_penjualan extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -272,45 +282,47 @@ public class History_penjualan extends javax.swing.JFrame {
 
         jTable1.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+                new Object[][] {
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null },
+                        { null, null, null, null }
+                },
+                new String[] {
+                        "Title 1", "Title 2", "Title 3", "Title 4"
+                }));
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(397, 397, 397)
-                .addComponent(jLabel4)
-                .addContainerGap(799, Short.MAX_VALUE))
-        );
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 242,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(397, 397, 397)
+                                .addComponent(jLabel4)
+                                .addContainerGap(799, Short.MAX_VALUE)));
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 296, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 296,
+                                        Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButton1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 568,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)));
 
         btn_produk.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btn_produk.setText("Produk");
@@ -322,7 +334,8 @@ public class History_penjualan extends javax.swing.JFrame {
         });
 
         cb_history.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        cb_history.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "History", "History Beli Bahan", "History Penjualan" }));
+        cb_history.setModel(new javax.swing.DefaultComboBoxModel<>(
+                new String[] { "History", "History Beli Bahan", "History Penjualan" }));
         cb_history.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_historyActionPerformed(evt);
@@ -359,43 +372,59 @@ public class History_penjualan extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Karyawan, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 7, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btn_logout, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cb_history, 0, 269, Short.MAX_VALUE)
-                            .addComponent(btn_produk, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_bahan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(Karyawan, javax.swing.GroupLayout.PREFERRED_SIZE, 268,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 7, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                false)
+                                                        .addComponent(btn_logout,
+                                                                javax.swing.GroupLayout.Alignment.LEADING,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(cb_history, 0, 269, Short.MAX_VALUE)
+                                                        .addComponent(btn_produk,
+                                                                javax.swing.GroupLayout.Alignment.LEADING,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(btn_bahan,
+                                                                javax.swing.GroupLayout.Alignment.LEADING,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(218, 218, 218)
-                .addComponent(Karyawan)
-                .addGap(28, 28, 28)
-                .addComponent(btn_bahan)
-                .addGap(27, 27, 27)
-                .addComponent(btn_produk)
-                .addGap(27, 27, 27)
-                .addComponent(cb_history, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_logout)
-                .addGap(113, 113, 113))
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(218, 218, 218)
+                                .addComponent(Karyawan)
+                                .addGap(28, 28, 28)
+                                .addComponent(btn_bahan)
+                                .addGap(27, 27, 27)
+                                .addComponent(btn_produk)
+                                .addGap(27, 27, 27)
+                                .addComponent(cb_history, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_logout)
+                                .addGap(113, 113, 113))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                Short.MAX_VALUE));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
         String keyword = jTextField1.getText().toLowerCase();
 
         // Membuat RowSorter untuk model tabel
@@ -410,21 +439,21 @@ public class History_penjualan extends javax.swing.JFrame {
             // Jika ada kata kunci, terapkan filter hanya pada kolom "Nama Produk"
             sorter.setRowFilter(RowFilter.regexFilter("(?i)" + keyword, 3)); // Indeks 2 adalah kolom "Nama Produk"
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }// GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }// GEN-LAST:event_jTextField1ActionPerformed
 
-    private void btn_produkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_produkActionPerformed
+    private void btn_produkActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_produkActionPerformed
         ProdukManagement produk = new ProdukManagement();
         produk.setVisible(true);
 
         // Menutup Jframe dashboard saat ini
         this.dispose();
-    }//GEN-LAST:event_btn_produkActionPerformed
+    }// GEN-LAST:event_btn_produkActionPerformed
 
-    private void cb_historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_historyActionPerformed
+    private void cb_historyActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cb_historyActionPerformed
         String selectedItem = (String) cb_history.getSelectedItem();
 
         if ("History Beli Bahan".equals(selectedItem)) {
@@ -439,35 +468,39 @@ public class History_penjualan extends javax.swing.JFrame {
         }
 
         this.dispose();
-    }//GEN-LAST:event_cb_historyActionPerformed
+    }// GEN-LAST:event_cb_historyActionPerformed
 
-    private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
+    private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_logoutActionPerformed
         this.dispose();
 
         Login_admin login = new Login_admin();
         login.setVisible(true);
-    }//GEN-LAST:event_btn_logoutActionPerformed
+    }// GEN-LAST:event_btn_logoutActionPerformed
 
-    private void KaryawanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KaryawanActionPerformed
+    private void KaryawanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_KaryawanActionPerformed
         ManagemenAkun akun = new ManagemenAkun();
         akun.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_KaryawanActionPerformed
+    }// GEN-LAST:event_KaryawanActionPerformed
 
-    private void btn_bahanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bahanActionPerformed
+    private void btn_bahanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_bahanActionPerformed
         Bahan_stock bahan = new Bahan_stock();
         bahan.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btn_bahanActionPerformed
+    }// GEN-LAST:event_btn_bahanActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
+        // (optional) ">
+        /*
+         * If Nimbus (introduced in Java SE 6) is not available, stay with the default
+         * look and feel.
+         * For details see
+         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -477,15 +510,19 @@ public class History_penjualan extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(History_penjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(History_penjualan.class.getName()).log(java.util.logging.Level.SEVERE,
+                    null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(History_penjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(History_penjualan.class.getName()).log(java.util.logging.Level.SEVERE,
+                    null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(History_penjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(History_penjualan.class.getName()).log(java.util.logging.Level.SEVERE,
+                    null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(History_penjualan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(History_penjualan.class.getName()).log(java.util.logging.Level.SEVERE,
+                    null, ex);
         }
-        //</editor-fold>
+        // </editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
