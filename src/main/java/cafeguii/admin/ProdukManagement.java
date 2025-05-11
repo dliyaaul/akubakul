@@ -311,7 +311,7 @@ public final class ProdukManagement extends javax.swing.JFrame {
                 rs.close();
                 ps.close();
             } catch (SQLException ex) {
-                Logger.getLogger(Bahan_stock.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BahanStock.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -352,7 +352,7 @@ public final class ProdukManagement extends javax.swing.JFrame {
                 rs.close();
                 ps.close();
             } catch (SQLException ex) {
-                Logger.getLogger(Bahan_stock.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BahanStock.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -846,7 +846,7 @@ public final class ProdukManagement extends javax.swing.JFrame {
 
                 ps.close();
             } catch (SQLException ex) {
-                Logger.getLogger(Bahan_stock.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BahanStock.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -902,7 +902,7 @@ public final class ProdukManagement extends javax.swing.JFrame {
 
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Bahan_stock.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BahanStock.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         reset();
@@ -948,7 +948,7 @@ public final class ProdukManagement extends javax.swing.JFrame {
                 // Tangkap pengecualian jika ada kesalahan constraint integritas referensial
                 JOptionPane.showMessageDialog(this, "Tidak dapat menghapus bahan. Hapus produk yang menggunakan bahan ini terlebih dahulu !!!!", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (SQLException ex) {
-                Logger.getLogger(Bahan_stock.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BahanStock.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             reset();
@@ -1049,7 +1049,7 @@ public final class ProdukManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_TambahBahanActionPerformed
 
     private void BTNBAHANActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNBAHANActionPerformed
-        Bahan_stock bahan = new Bahan_stock();
+        BahanStock bahan = new BahanStock();
         bahan.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BTNBAHANActionPerformed
@@ -1092,7 +1092,7 @@ public final class ProdukManagement extends javax.swing.JFrame {
                 // Tangkap pengecualian jika ada kesalahan constraint integritas referensial
                 JOptionPane.showMessageDialog(this, "Tidak dapat menghapus bahan. Hapus produk yang menggunakan bahan ini terlebih dahulu !!!!", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (SQLException ex) {
-                Logger.getLogger(Bahan_stock.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BahanStock.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             reset2();
@@ -1139,7 +1139,7 @@ public final class ProdukManagement extends javax.swing.JFrame {
 
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Bahan_stock.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BahanStock.class.getName()).log(Level.SEVERE, null, ex);
         }
         reset2();
         loadBahan();
@@ -1196,15 +1196,15 @@ public final class ProdukManagement extends javax.swing.JFrame {
     private void insertDataToDatabase(JTable table, int selectedRow, int KodeProduk) {
         int kodeBahan = (int) table.getValueAt(selectedRow, 2);
         int kuantitas = (int) table.getValueAt(selectedRow, 3);
-
+        
         // Koneksi ke database dan insert data
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/akubakulcs", "root", "Opoae_123")) {
             String sql = "INSERT INTO `Bahan&Produk` (KodeDetailBahan, Kuantitas, CodeProduk) VALUES (?, ?, ?)";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, kodeBahan);
-            statement.setInt(2, kuantitas);
-            statement.setInt(3, KodeProduk);
-            statement.executeUpdate();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, kodeBahan);
+            ps.setInt(2, kuantitas);
+            ps.setInt(3, KodeProduk);
+            ps.executeUpdate();
             reset2();
             JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan ke database.", "Sukses", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {

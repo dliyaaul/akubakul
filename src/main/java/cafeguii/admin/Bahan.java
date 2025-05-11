@@ -9,31 +9,31 @@ package cafeguii.admin;
  * @author Dliyaa'ul
  */
 public class Bahan {
-    private Integer KodeBahan;
-    private String NamaBahan;
-    private double HargaBeli;
-    private Integer Stok;
+    Integer kodeBahan;
+    String namaBahan;
+    double hargaBeli;
+    Integer stok;
 
-    public Bahan(Integer KodeBahan, String NamaBahan, double HargaBeli, Integer Stok) {
-        this.KodeBahan = KodeBahan;
-        this.NamaBahan = NamaBahan;
-        this.HargaBeli = HargaBeli;
-        this.Stok = Stok;
+    public Bahan(Integer kodeBahan, String namaBahan, double hargaBeli, Integer stok) {
+        this.kodeBahan = kodeBahan;
+        this.namaBahan = namaBahan;
+        this.hargaBeli = hargaBeli;
+        this.stok = stok;
     }
 
     public Integer getKodeBahan() {
-        return KodeBahan;
+        return kodeBahan;
     }
 
     public String getNamaBahan() {
-        return NamaBahan;
+        return namaBahan;
     }
 
     public double getHargaBeli() {
-        return HargaBeli;
+        return hargaBeli;
     }
 
     public Integer getStok() {
-        return Stok;
+        return stok;
     }
 }

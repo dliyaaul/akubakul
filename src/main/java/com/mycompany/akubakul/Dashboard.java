@@ -1,6 +1,6 @@
 package com.mycompany.akubakul;
 
-import cafeguii.admin.Bahan_stock;
+import cafeguii.admin.BahanStock;
 import cafeguii.koneksi.koneksi;
 import cafeguii.login.Login_admin;
 
@@ -228,7 +228,7 @@ public final class Dashboard extends javax.swing.JFrame {
                 rs.close();
                 ps.close();
             } catch (SQLException ex) {
-                Logger.getLogger(Bahan_stock.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BahanStock.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

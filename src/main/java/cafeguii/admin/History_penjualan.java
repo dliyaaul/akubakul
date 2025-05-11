@@ -484,7 +484,7 @@ public class History_penjualan extends javax.swing.JFrame {
     }// GEN-LAST:event_KaryawanActionPerformed
 
     private void btn_bahanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_bahanActionPerformed
-        Bahan_stock bahan = new Bahan_stock();
+        BahanStock bahan = new BahanStock();
         bahan.setVisible(true);
         this.dispose();
     }// GEN-LAST:event_btn_bahanActionPerformed

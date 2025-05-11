@@ -4,7 +4,7 @@ package cafeguii.login;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-import cafeguii.admin.Bahan_stock;
+import cafeguii.admin.BahanStock;
 import cafeguii.admin.History_pembelian;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -243,7 +243,7 @@ public class Login_admin extends javax.swing.JFrame {
                     if (employee.getLevel().equals("Admin")) {
                         java.awt.EventQueue.invokeLater(new Runnable() {
                             public void run() {
-                                Bahan_stock bahan = new Bahan_stock();
+                                BahanStock bahan = new BahanStock();
                                 bahan.setVisible(true);
                             }
                         });
