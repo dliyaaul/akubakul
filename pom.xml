@@ -17,6 +17,16 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>5.1.0.4751</version> <!-- Gunakan versi terbaru -->
+                <configuration>
+                    <sonar.host.url>${env.SONAR_HOST_URL}</sonar.host.url> <!-- Menyertakan URL server SonarQube -->
+                    <sonar.login>${env.SONAR_TOKEN}</sonar.login>  <!-- Menyertakan token autentikasi -->
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
